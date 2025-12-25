@@ -53,6 +53,10 @@ button {
     align-items: center;
 }
 
+.project-list > div.selected > .project-dot {
+    background-color: red;
+}
+
 .project-list .project-title {
     margin-right: auto;
 }
