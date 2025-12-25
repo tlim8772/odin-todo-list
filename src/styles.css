@@ -1,0 +1,163 @@
+body {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+}
+
+.sidebar {
+    grid-area: 1 / 1 / -1 / 2;
+    background-color: lightblue;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.project-page {
+    grid-area: 1 / 2 / -1 / -1;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 36px;
+}
+
+.sidebar-header > button {
+    background-color: transparent;
+    border: none;
+    height: 36px;
+    width: 36px;
+}
+
+.sidebar-header > button > img {
+    object-fit: cover;
+}
+
+.project-list {
+    display: flex;
+    flex-direction: column;
+    padding-left: 16px;
+}
+
+.project-list > div {
+    display: flex;
+    align-items: center;
+}
+
+.project-list .project-title {
+    margin-right: auto;
+}
+
+.project-dot {
+    background-color: black;
+    border-radius: 50%;
+    height: 6px;
+    width: 6px;
+    margin-right: 6px;
+}
+
+.project-page {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.project-page-header {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 8px;
+}
+
+.project-page-header > div {
+    font-size: 36px;
+    margin-right: auto;
+}
+
+.project-page-header > button {
+    background-color: lightblue;
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 16px;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.task-card {
+  display: flex;
+  align-items: start;
+  gap: 8px;
+  border: 2px solid lightblue
+}
+
+.task-data {
+    margin-right: auto;
+    font-size: 16px;
+}
+
+.task-data-header {
+    display: flex;
+    gap: 16px;
+    font-size: 18px;
+    margin-right: auto;
+}
+
+.task-card > button > img {
+    height: 24px;
+    width: 24px;
+    object-fit: cover;
+}
+
+.priority-chip.high {
+    color: red
+}
+
+
+.priority-chip.low {
+    color: green
+}
+
+.priority-chip.med {
+    color: rgb(195, 195, 8)
+}
+
+.add-project-dialog[open],
+.add-task-dialog[open] {
+    border: 2px solid black;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 8px;
+}
+
+.add-project-dialog > div:last-child, 
+.add-task-dialog > div:last-child 
+{
+    text-align: right;
+}
+
+.add-project-dialog > div:last-child > button,
+.add-task-dialog > div:last-child > button 
+{
+    background-color: lightblue;
+}
+
+
+
+
+

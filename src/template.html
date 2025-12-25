@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div>Projects</div>
+        <button>
+          <img src="../media/add.svg">
+        </button>
+      </div>
+      <div class="project-list">
+        <div>
+          <div class="project-dot"></div>
+          <div class="project-title">Daily</div>
+          <button>
+            <img src="../media/edit.svg">
+          </button>
+          <button>
+            <img src="../media/delete.svg">
+          </button>
+        </div>
+        <div>
+          <div class="project-dot"></div>
+          <div class="project-title">Weekly</div>
+          <button>
+            <img src="../media/edit.svg">
+          </button>
+          <button>
+            <img src="../media/delete.svg">
+          </button>
+        </div>
+        <div>
+          <div class="project-dot"></div>
+          <div class="project-title">Monthly</div>
+          <button>
+            <img src="../media/edit.svg">
+          </button>
+          <button>
+            <img src="../media/delete.svg">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-page">
+      <div class="project-page-header">
+        <div>Daily</div>
+        <button class="add-task-button">
+          Add Task
+        </button>
+      </div>
+
+      <div class="task-list">
+        <div class="task-card">
+          <input type="checkbox">
+          <div class="task-data">
+            <div class="task-data-header">
+              <div>Task 1</div>
+              <div class="priority-chip high">High</div>
+              <div>By: 2025-12-01</div>
+            </div>
+            
+          </div>
+          <button>
+            <img src="../media/expand.svg">
+          </button>
+          <button>
+            <img src="../media/edit.svg">
+          </button>
+          <button>
+            <img src="../media/delete.svg">
+          </button>   
+        </div>
+        <div class="task-card">
+          <input type="checkbox">
+          <div class="task-data">
+            <div class="task-data-header">
+              <div>Task 2</div>
+              <div class="priority-chip low">Low</div>
+              <div>By: 2025-12-10</div>
+            </div>
+            <div>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic.
+            </div>
+          </div>
+          <button>
+            <img src="../media/expand.svg">
+          </button>
+          <button>
+            <img src="../media/edit.svg">
+          </button>
+          <button>
+            <img src="../media/delete.svg">
+          </button>   
+        </div>
+        <div class="task-card">
+          <input type="checkbox">
+          <div class="task-data">
+            <div class="task-data-header">
+              <div>Task 3</div>
+              <div class="priority-chip med">Med</div>
+              <div>By: 2025-12-11</div>
+            </div>
+          </div>
+          <button>
+            <img src="../media/expand.svg">
+          </button>
+          <button>
+            <img src="../media/edit.svg">
+          </button>
+          <button>
+            <img src="../media/delete.svg">
+          </button>   
+        </div>
+      </div>
+    </div>
+    <dialog class="add-project-dialog" closedby="any">
+      <div>Title:</div>
+      <input type="text" required>
+      <div>
+        <button class="cancel-add-project">Cancel</button>
+        <button class="confirm-add-project">Confirm</button>
+      </div>
+    </dialog>
+    <dialog class="add-task-dialog" closedby="any">
+      <div>Title:</div>
+      <input type="text" required>
+      <div>Description:</div>
+      <textarea required></textarea>
+      <div>Due date:</div>
+      <input type="date">
+      <div>Priority</div>
+      <select>
+        <option value="high">High</option>
+        <option value="med">Med</option>
+        <option value="low">Low</option>
+      </select>
+      <div>
+        <button class="cancel-add-task">Cancel</button>
+        <button class="confirm-add-task">Confirm</button>
+      </div>
+    </dialog>
+  </body>
+</html>
