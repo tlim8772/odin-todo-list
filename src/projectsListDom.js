@@ -1,6 +1,6 @@
-import { projectPageTitle } from "./projectPageDom.js";
+import { projectPageTitle, projectsList } from "./projectPageDom.js";
 
-const projectsList = document.querySelector('.project-list');
+
 const openAddProjectDialogButton = document.querySelector('.sidebar-header > button');
 const addProjectModal = document.querySelector('.add-project-dialog');
 const cancelAddProjectButton = document.querySelector('.cancel-add-project');
@@ -12,10 +12,6 @@ const editProjectModalTemplate = addProjectModal.cloneNode(true);
 openAddProjectDialogButton.addEventListener('click', () => addProjectModal.showModal());
 cancelAddProjectButton.addEventListener('click', () => addProjectModal.close())
 confirmAddProjectButton.addEventListener('click', () => confirmAddProjectButtonFunc());
-
-function getSelectedProject() {
-    return projectsList.querySelector('.selected');
-}
 
 function clearSelectedProject() {
     const selectedProjects = projectsList.querySelectorAll('.selected');
@@ -81,7 +77,7 @@ function confirmAddProjectButtonFunc() {
 function initProjectList() {
     projectsList.innerHTML = '';
     
-    const DUMMY_PROJECTS = ['Daily', 'Weekly', 'Monthly'];
+    const DUMMY_PROJECTS = ['Daily'];
     const projectNodes = DUMMY_PROJECTS.map(title => createProjectElem(title));
 
     projectsList.append(...projectNodes);

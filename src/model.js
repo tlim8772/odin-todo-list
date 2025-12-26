@@ -1,6 +1,5 @@
 export class Task {
-    constructor(uuid, title, description, priority, dueDate, checked) {
-        this.uuid = uuid;
+    constructor(title, description, priority, dueDate, checked) {
         this.title = title;
         this.description = description;
         this.priority = priority;
@@ -9,16 +8,24 @@ export class Task {
     }
 }
 
-export class TaskList {
-    constructor() {
-        this.tasks = [];
-    }
-}
-
 export class Project {
     constructor(uuid, title) {
         this.uuid = uuid;
         this.title = title;
+        this.tasks = [];
+    }
+
+    addTask(task) {
+        this.tasks.push(task);
+    }
+
+    deleteTask(task) {
+        this.tasks = this.tasks.filter(t => t.uuid !== task.uuid);
+    }
+
+    editTask(task) {
+        const t = this.tasks.findIndex(t => t.uuid === task.uuid);
+        this.tasks[t] = task;
     }
 }
 
@@ -28,3 +35,4 @@ export class ProjectList {
         this.selectedProject = null;
     }
 }
+
