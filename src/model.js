@@ -98,7 +98,6 @@ function saveData() {
 
 function loadData() {
     const json = localStorage.getItem(LOCALSTORAGE_KEY);
-    console.log(json);
     
     if (json == null) {
         projectList = new ProjectList();

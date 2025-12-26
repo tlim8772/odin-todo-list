@@ -131,7 +131,6 @@ function confirmAddTaskModalButtonFunc(addNewTaskFunc) {
     const task = new Task(title, description, priority, dueDate, false);
     
     selectedProject.addTask(task);
-    console.log(projectList);
     tasksList.append(createTaskCard(task));
     addTaskModal.close();
 }
