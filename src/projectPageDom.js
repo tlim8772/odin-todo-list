@@ -1,4 +1,4 @@
-import { Task, Project } from './model.js';
+import { Task, Project, ProjectList, selectedProject } from './model.js';
 import { format } from 'date-fns';
 import { makeFirstLetterCaps } from './utils.js';
 
@@ -16,16 +16,6 @@ const editTaskModalTemplate = addTaskModal.cloneNode(true);
 addTaskButton.addEventListener('click', () => addTaskModal.showModal());
 cancelAddTaskModalButton.addEventListener('click', () => addTaskModal.close());
 confirmAddTaskModalButton.addEventListener('click', confirmAddTaskModalButtonFunc);
-
-export let selectedProject = null;
-
-export function getSelectedProject() {
-    return projectsList.querySelector('.selected');
-}
-
-export function setSelectedProject(proj) {
-    selectedProject = proj;
-}
 
 function createEditTaskModal() {
     const editTaskModal = editTaskModalTemplate.cloneNode(true);
@@ -132,6 +122,11 @@ function confirmAddTaskModalButtonFunc(addNewTaskFunc) {
     const dueDate = new Date(addTaskModal.children[5].value);
     const priority = addTaskModal.children[7].value;
 
+    addTaskModal.children[1].value = '';
+    addTaskModal.children[3].value = '';
+    addTaskModal.children[5].value = '';
+    addTaskModal.children[7].value = '';
+
     const task = new Task(title, description, priority, dueDate, false);
     
     selectedProject.addTask(task);
@@ -139,7 +134,7 @@ function confirmAddTaskModalButtonFunc(addNewTaskFunc) {
     addTaskModal.close();
 }
 
-export function rerender(tasklist, addNewTaskFunc) {
+export function rerender(tasklist) {
     tasksList.innerHTML = '';
     const taskElems = tasklist.map(task => createTaskCard(task));
     tasksList.append(...taskElems);

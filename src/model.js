@@ -6,6 +6,10 @@ export class Task {
         this.dueDate = dueDate;
         this.checked = checked;
     }
+
+    toJSONObj() {
+        return this;
+    }
 }
 
 export class Project {
@@ -13,6 +17,14 @@ export class Project {
         this.title = title;
         this.uuid = uuid;
         this.tasks = [];
+    }
+
+    toJSONObj() {
+        return {
+            title: this.title,
+            uuid: this.uuid,
+            tasks: this.tasks,
+        }
     }
 
     addTask(task) {
@@ -32,7 +44,32 @@ export class Project {
 export class ProjectList {
     constructor() {
         this.projects = [];
-        this.selectedProject = null;
+    }
+
+    toJSONObj() {
+        return this.projects.map(p => p.toJSONObj());
+    }
+
+    addProject(p) {
+        this.projects.push(p);
+        console.log(this);
+    }
+
+    deleteProject(p) {
+        this.projects = this.projects.filter(proj => proj !== p);
+        console.log(this);
     }
 }
+
+export let selectedProject = null;
+export let projectList = new ProjectList();
+
+export function getSelectedProject() {
+    return projectsList.querySelector('.selected');
+}
+
+export function setSelectedProject(proj) {
+    selectedProject = proj;
+}
+
 

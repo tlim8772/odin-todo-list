@@ -1,5 +1,5 @@
-import { projectPageTitle, projectsList, rerender, setSelectedProject } from "./projectPageDom.js";
-import { Task, Project } from './model.js';
+import { projectPageTitle, projectsList, rerender } from "./projectPageDom.js";
+import { Task, Project, setSelectedProject, projectList } from './model.js';
 
 
 const openAddProjectDialogButton = document.querySelector('.sidebar-header > button');
@@ -58,6 +58,7 @@ function createProjectElem(proj) {
             alert('Cannot delete a selected project');
             return;
         }
+        projectList.deleteProject(proj);
         newProjectNode.remove()
     });
     
@@ -75,7 +76,11 @@ function createProjectElem(proj) {
 function confirmAddProjectButtonFunc() {
     const title = addProjectModal.children[1].value;
     addProjectModal.children[1].value = '';
-    projectsList.append(createProjectElem(new Project(title)));
+    
+    const p = new Project(title);
+    
+    projectList.addProject(p);
+    projectsList.append(createProjectElem(p));
     addProjectModal.close();
 }
 
