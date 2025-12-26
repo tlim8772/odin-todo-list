@@ -1,3 +1,5 @@
+import { projectPageTitle } from "./projectPageDom.js";
+
 const projectsList = document.querySelector('.project-list');
 const openAddProjectDialogButton = document.querySelector('.sidebar-header > button');
 const addProjectModal = document.querySelector('.add-project-dialog');
@@ -10,6 +12,10 @@ const editProjectModalTemplate = addProjectModal.cloneNode(true);
 openAddProjectDialogButton.addEventListener('click', () => addProjectModal.showModal());
 cancelAddProjectButton.addEventListener('click', () => addProjectModal.close())
 confirmAddProjectButton.addEventListener('click', () => confirmAddProjectButtonFunc());
+
+function getSelectedProject() {
+    return projectsList.querySelector('.selected');
+}
 
 function clearSelectedProject() {
     const selectedProjects = projectsList.querySelectorAll('.selected');
@@ -26,18 +32,20 @@ function createEditProjectModal() {
 
 }
 
-function createProjectElem(title) {
+function createProjectElem(title, uuid = crypto.randomUUID()) {
     const newProjectNode = projectNodeTemplate.cloneNode(true);
     const editButton = newProjectNode.children[2];
     const deleteButton = newProjectNode.children[3];
     const [editProjectModal, confirmButton] = createEditProjectModal(title);
 
+    newProjectNode.dataset.uuid = uuid;
     newProjectNode.querySelector('.project-title').textContent = title;
     
     newProjectNode.addEventListener('click', (e) => {
         if (e.target !== newProjectNode) return;
         clearSelectedProject();
         newProjectNode.classList.add('selected');
+        projectPageTitle.textContent = newProjectNode.querySelector('.project-title').textContent;
     })
     
     editButton.addEventListener('click', () => {
@@ -45,7 +53,13 @@ function createProjectElem(title) {
         editProjectModal.showModal();
     })
     
-    deleteButton.addEventListener('click', () => newProjectNode.remove());
+    deleteButton.addEventListener('click', () => {
+        if (newProjectNode.classList.contains('selected')) {
+            alert('Cannot delete a selected project');
+            return;
+        }
+        newProjectNode.remove()
+    });
     
     confirmButton.addEventListener('click', () => {
         newProjectNode.querySelector('.project-title').textContent = editProjectModal.children[1].value;

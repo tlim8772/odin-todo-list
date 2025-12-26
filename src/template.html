@@ -22,29 +22,8 @@
             <img src="../media/delete.svg">
           </button>
         </div>
-        <div class="selected">
-          <div class="project-dot"></div>
-          <div class="project-title">Weekly</div>
-          <button>
-            <img src="../media/edit.svg">
-          </button>
-          <button>
-            <img src="../media/delete.svg">
-          </button>
-        </div>
-        <div>
-          <div class="project-dot"></div>
-          <div class="project-title">Monthly</div>
-          <button>
-            <img src="../media/edit.svg">
-          </button>
-          <button>
-            <img src="../media/delete.svg">
-          </button>
-        </div>
       </div>
     </div>
-
     <div class="project-page">
       <div class="project-page-header">
         <div>Daily</div>
@@ -52,56 +31,14 @@
           Add Task
         </button>
       </div>
-
       <div class="task-list">
         <div class="task-card">
-          <input type="checkbox">
+          <input class="task-checkbox" type="checkbox">
           <div class="task-data">
             <div class="task-data-header">
-              <div>Task 1</div>
-              <div class="priority-chip high">High</div>
-              <div>By: 2025-12-01</div>
-            </div>
-          </div>
-          <button>
-            <img src="../media/expand.svg">
-          </button>
-          <button>
-            <img src="../media/edit.svg">
-          </button>
-          <button>
-            <img src="../media/delete.svg">
-          </button>   
-        </div>
-        <div class="task-card">
-          <input type="checkbox">
-          <div class="task-data">
-            <div class="task-data-header">
-              <div>Task 2</div>
-              <div class="priority-chip low">Low</div>
-              <div>By: 2025-12-10</div>
-            </div>
-            <div>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic.
-            </div>
-          </div>
-          <button>
-            <img src="../media/expand.svg">
-          </button>
-          <button>
-            <img src="../media/edit.svg">
-          </button>
-          <button>
-            <img src="../media/delete.svg">
-          </button>   
-        </div>
-        <div class="task-card">
-          <input type="checkbox">
-          <div class="task-data">
-            <div class="task-data-header">
-              <div>Task 3</div>
-              <div class="priority-chip med">Med</div>
-              <div>By: 2025-12-11</div>
+              <div class="task-card-title">Task 1</div>
+              <div class="task-card-priority priority-chip high">High</div>
+              <div class="task-card-due-date">by: 2025-12-01</div>
             </div>
           </div>
           <button>
@@ -130,7 +67,7 @@
       <div>Description:</div>
       <textarea required></textarea>
       <div>Due date:</div>
-      <input type="date">
+      <input type="date" required>
       <div>Priority</div>
       <select>
         <option value="high">High</option>
