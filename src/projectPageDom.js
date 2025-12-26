@@ -1,4 +1,4 @@
-import { Task, Project, ProjectList, selectedProject } from './model.js';
+import { Task, Project, ProjectList, selectedProject, projectList } from './model.js';
 import { format } from 'date-fns';
 import { makeFirstLetterCaps } from './utils.js';
 
@@ -131,6 +131,7 @@ function confirmAddTaskModalButtonFunc(addNewTaskFunc) {
     const task = new Task(title, description, priority, dueDate, false);
     
     selectedProject.addTask(task);
+    console.log(projectList);
     tasksList.append(createTaskCard(task));
     addTaskModal.close();
 }

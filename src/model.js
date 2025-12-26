@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 export const LOCALSTORAGE_KEY = 'odin-todolist';
 
 export class Task {
@@ -11,7 +13,7 @@ export class Task {
 
     static fromJSON(json) {
         if (typeof json === 'string') json = JSON.parse(json);
-        return new Task(json.title, json.description, json.priority, json.dueDate, json.checked);
+        return new Task(json.title, json.description, json.priority, new Date(json.dueDate), json.checked);
     }
 
     toJSONObj() {
@@ -26,23 +28,21 @@ export class Task {
 }
 
 export class Project {
-    constructor(title, uuid) {
+    constructor(title) {
         this.title = title;
-        this.uuid = uuid;
         this.tasks = [];
     }
 
     static fromJSON(json) {
         if (typeof json === 'string') json = JSON.parse(json);
         const proj = new Project(json.title);
-        proj.tasks = json.tasks.map(t => Task.fromJSON(t));
+        proj.tasks = json.tasks.map(Task.fromJSON);
         return proj;
     }
 
     toJSONObj() {
         return {
             title: this.title,
-            uuid: this.uuid,
             tasks: this.tasks.map(t => t.toJSONObj()),
         }
     }
@@ -52,12 +52,7 @@ export class Project {
     }
 
     deleteTask(task) {
-        this.tasks = this.tasks.filter(t => t.uuid !== task.uuid);
-    }
-
-    editTask(task) {
-        const t = this.tasks.findIndex(t => t.uuid === task.uuid);
-        this.tasks[t] = task;
+        this.tasks = this.tasks.filter(t => t !== task);
     }
 }
 
@@ -70,7 +65,7 @@ export class ProjectList {
         if (typeof json === 'string') json = JSON.parse(json);
 
         const projList = new ProjectList();
-        projList.projects = json.projects.map(p => Project.fromJSON(p));
+        projList.projects = json.projects.map(Project.fromJSON);
         return projList;
     }
 
@@ -119,4 +114,3 @@ function init() {
 }
 
 init();
-
