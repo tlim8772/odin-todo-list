@@ -1,4 +1,5 @@
-import { projectPageTitle, projectsList } from "./projectPageDom.js";
+import { projectPageTitle, projectsList, rerender, setSelectedProject } from "./projectPageDom.js";
+import { Task, Project } from './model.js';
 
 
 const openAddProjectDialogButton = document.querySelector('.sidebar-header > button');
@@ -28,7 +29,8 @@ function createEditProjectModal() {
 
 }
 
-function createProjectElem(title, uuid = crypto.randomUUID()) {
+function createProjectElem(proj) {
+    const {title, uuid} = proj;
     const newProjectNode = projectNodeTemplate.cloneNode(true);
     const editButton = newProjectNode.children[2];
     const deleteButton = newProjectNode.children[3];
@@ -42,10 +44,12 @@ function createProjectElem(title, uuid = crypto.randomUUID()) {
         clearSelectedProject();
         newProjectNode.classList.add('selected');
         projectPageTitle.textContent = newProjectNode.querySelector('.project-title').textContent;
+        setSelectedProject(proj);
+        rerender(proj.tasks);
     })
     
     editButton.addEventListener('click', () => {
-        editProjectModal.children[1].value =  newProjectNode.querySelector('.project-title').textContent;
+        editProjectModal.children[1].value = proj.title;
         editProjectModal.showModal();
     })
     
@@ -58,7 +62,8 @@ function createProjectElem(title, uuid = crypto.randomUUID()) {
     });
     
     confirmButton.addEventListener('click', () => {
-        newProjectNode.querySelector('.project-title').textContent = editProjectModal.children[1].value;
+        proj.title =  editProjectModal.children[1].value
+        newProjectNode.querySelector('.project-title').textContent = proj.title;
         editProjectModal.close();
     });
 
@@ -70,15 +75,15 @@ function createProjectElem(title, uuid = crypto.randomUUID()) {
 function confirmAddProjectButtonFunc() {
     const title = addProjectModal.children[1].value;
     addProjectModal.children[1].value = '';
-    projectsList.append(createProjectElem(title));
+    projectsList.append(createProjectElem(new Project(title)));
     addProjectModal.close();
 }
 
 function initProjectList() {
     projectsList.innerHTML = '';
     
-    const DUMMY_PROJECTS = ['Daily'];
-    const projectNodes = DUMMY_PROJECTS.map(title => createProjectElem(title));
+    const DUMMY_PROJECTS = [new Project('Daily')];
+    const projectNodes = DUMMY_PROJECTS.map(p => createProjectElem(p));
 
     projectsList.append(...projectNodes);
     projectNodes[0].click();

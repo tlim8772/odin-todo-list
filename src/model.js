@@ -9,9 +9,9 @@ export class Task {
 }
 
 export class Project {
-    constructor(uuid, title) {
-        this.uuid = uuid;
+    constructor(title, uuid) {
         this.title = title;
+        this.uuid = uuid;
         this.tasks = [];
     }
 

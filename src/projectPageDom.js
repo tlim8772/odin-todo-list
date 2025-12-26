@@ -1,4 +1,4 @@
-import { Task } from './model.js';
+import { Task, Project } from './model.js';
 import { format } from 'date-fns';
 import { makeFirstLetterCaps } from './utils.js';
 
@@ -17,8 +17,14 @@ addTaskButton.addEventListener('click', () => addTaskModal.showModal());
 cancelAddTaskModalButton.addEventListener('click', () => addTaskModal.close());
 confirmAddTaskModalButton.addEventListener('click', confirmAddTaskModalButtonFunc);
 
+export let selectedProject = null;
+
 export function getSelectedProject() {
     return projectsList.querySelector('.selected');
+}
+
+export function setSelectedProject(proj) {
+    selectedProject = proj;
 }
 
 function createEditTaskModal() {
@@ -49,6 +55,9 @@ function createTaskCard(task) {
     newTaskNode.dataset.uuid = task.uuid;
     
     checkBox.checked = task.checked;
+    checkBox.addEventListener('change', () => {
+        task.checked = !task.checked;
+    })
     
     titleNode.textContent = task.title;
     
@@ -117,37 +126,21 @@ function createTaskCard(task) {
     return newTaskNode;
 }  
 
-function confirmAddTaskModalButtonFunc() {
+function confirmAddTaskModalButtonFunc(addNewTaskFunc) {
     const title = addTaskModal.children[1].value;
     const description = addTaskModal.children[3].value;
     const dueDate = new Date(addTaskModal.children[5].value);
     const priority = addTaskModal.children[7].value;
 
-    tasksList.append(createTaskCard(new Task(title, description, priority, dueDate, false)));
+    const task = new Task(title, description, priority, dueDate, false);
+    
+    selectedProject.addTask(task);
+    tasksList.append(createTaskCard(task));
     addTaskModal.close();
 }
 
-function rerender(tasklist) {
+export function rerender(tasklist, addNewTaskFunc) {
     tasksList.innerHTML = '';
     const taskElems = tasklist.map(task => createTaskCard(task));
     tasksList.append(...taskElems);
 }
-
-
-const tasklist = [
-    new Task(
-        'task 1',
-        'hello lorem ipsunm',
-        'high',
-        new Date(),
-        false,
-    ),
-    new Task(
-        'task 2',
-        'hello lorem ipsunm tas 2',
-        'high',
-        new Date(),
-        true,
-    )
-]
-rerender(tasklist);
