@@ -1,5 +1,15 @@
-import { projectPageTitle, projectsList, rerender } from "./projectPageDom.js";
-import { Task, Project, setSelectedProject, projectList } from './model.js';
+import { 
+    projectPageTitle, 
+    projectsList, 
+    rerender 
+} from "./projectPageDom.js";
+
+import { 
+    Task, 
+    Project, 
+    setSelectedProject, 
+    projectList 
+} from './model.js';
 
 
 const openAddProjectDialogButton = document.querySelector('.sidebar-header > button');
@@ -32,15 +42,15 @@ function createEditProjectModal() {
 function createProjectElem(proj) {
     const {title, uuid} = proj;
     const newProjectNode = projectNodeTemplate.cloneNode(true);
+    const projectTitleNode = newProjectNode.querySelector('.project-title');
     const editButton = newProjectNode.children[2];
     const deleteButton = newProjectNode.children[3];
     const [editProjectModal, confirmButton] = createEditProjectModal(title);
 
     newProjectNode.dataset.uuid = uuid;
-    newProjectNode.querySelector('.project-title').textContent = title;
+    projectTitleNode.textContent = title;
     
-    newProjectNode.addEventListener('click', (e) => {
-        if (e.target !== newProjectNode) return;
+    projectTitleNode.addEventListener('click', () => {
         clearSelectedProject();
         newProjectNode.classList.add('selected');
         projectPageTitle.textContent = newProjectNode.querySelector('.project-title').textContent;
@@ -87,11 +97,10 @@ function confirmAddProjectButtonFunc() {
 function initProjectList() {
     projectsList.innerHTML = '';
     
-    const DUMMY_PROJECTS = [new Project('Daily')];
-    const projectNodes = DUMMY_PROJECTS.map(p => createProjectElem(p));
-
+    const projectNodes = projectList.projects.map(p => createProjectElem(p));
+    console.log(projectNodes);
     projectsList.append(...projectNodes);
-    projectNodes[0].click();
+    projectNodes[0].querySelector('.project-title').click();
 }
 
 initProjectList();

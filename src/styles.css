@@ -61,6 +61,10 @@ button {
     margin-right: auto;
 }
 
+.project-title:hover {
+    cursor: pointer;
+}
+
 .project-dot {
     background-color: black;
     border-radius: 50%;

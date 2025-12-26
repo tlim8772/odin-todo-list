@@ -5,12 +5,13 @@ import { makeFirstLetterCaps } from './utils.js';
 export const projectsList = document.querySelector('.project-list');
 export const projectPageTitle = document.querySelector('.project-page-header > div:first-child');
 const tasksList = document.querySelector('.task-list');
+const taskCard = document.querySelector('.task-card');
 const addTaskButton = document.querySelector('.add-task-button');
 const addTaskModal = document.querySelector('.add-task-dialog');
 const cancelAddTaskModalButton = document.querySelector('.cancel-add-task');
 const confirmAddTaskModalButton = document.querySelector('.confirm-add-task');
 
-const taskCardTemplate = document.querySelector('.task-card').cloneNode(true);
+const taskCardTemplate = taskCard.cloneNode(true);
 const editTaskModalTemplate = addTaskModal.cloneNode(true);
 
 addTaskButton.addEventListener('click', () => addTaskModal.showModal());
@@ -139,3 +140,9 @@ export function rerender(tasklist) {
     const taskElems = tasklist.map(task => createTaskCard(task));
     tasksList.append(...taskElems);
 }
+
+function init() {
+    taskCard.remove();
+}
+
+init();

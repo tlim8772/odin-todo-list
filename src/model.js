@@ -1,3 +1,5 @@
+export const LOCALSTORAGE_KEY = 'odin-todolist';
+
 export class Task {
     constructor(title, description, priority, dueDate, checked) {
         this.title = title;
@@ -7,8 +9,19 @@ export class Task {
         this.checked = checked;
     }
 
+    static fromJSON(json) {
+        if (typeof json === 'string') json = JSON.parse(json);
+        return new Task(json.title, json.description, json.priority, json.dueDate, json.checked);
+    }
+
     toJSONObj() {
-        return this;
+        return {
+            title: this.title,
+            description: this.description,
+            priority: this.priority,
+            dueDate: format(this.dueDate, 'yyyy-MM-dd'),
+            checked: this.checked,
+        }
     }
 }
 
@@ -19,11 +32,18 @@ export class Project {
         this.tasks = [];
     }
 
+    static fromJSON(json) {
+        if (typeof json === 'string') json = JSON.parse(json);
+        const proj = new Project(json.title);
+        proj.tasks = json.tasks.map(t => Task.fromJSON(t));
+        return proj;
+    }
+
     toJSONObj() {
         return {
             title: this.title,
             uuid: this.uuid,
-            tasks: this.tasks,
+            tasks: this.tasks.map(t => t.toJSONObj()),
         }
     }
 
@@ -46,30 +66,57 @@ export class ProjectList {
         this.projects = [];
     }
 
+    static fromJSON(json) {
+        if (typeof json === 'string') json = JSON.parse(json);
+
+        const projList = new ProjectList();
+        projList.projects = json.projects.map(p => Project.fromJSON(p));
+        return projList;
+    }
+
     toJSONObj() {
-        return this.projects.map(p => p.toJSONObj());
+        return {
+            projects: this.projects.map(p => p.toJSONObj())
+        };
     }
 
     addProject(p) {
         this.projects.push(p);
-        console.log(this);
     }
 
     deleteProject(p) {
         this.projects = this.projects.filter(proj => proj !== p);
-        console.log(this);
     }
 }
 
+
 export let selectedProject = null;
 export let projectList = new ProjectList();
-
-export function getSelectedProject() {
-    return projectsList.querySelector('.selected');
-}
 
 export function setSelectedProject(proj) {
     selectedProject = proj;
 }
 
+function saveData() {
+    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(projectList.toJSONObj()));
+}
+
+function loadData() {
+    const json = localStorage.getItem(LOCALSTORAGE_KEY);
+    console.log(json);
+    
+    if (json == null) {
+        projectList = new ProjectList();
+        projectList.projects = [new Project('Daily')];
+        return;
+    }
+    projectList = ProjectList.fromJSON(json);
+}
+
+function init() {
+    loadData();
+    window.addEventListener('beforeunload', saveData);
+}
+
+init();
 
